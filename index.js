@@ -8,13 +8,15 @@ const { v4: uuidv4 } = require("uuid");
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
 let getUser = () => {
   return [
     faker.datatype.uuid(),
-    faker.internet.userName(),
+    faker.internet.username(),
     faker.internet.email(),
     faker.internet.password(),
   ];
@@ -129,8 +131,39 @@ app.get("/user/:id/delete", (req,res)=>{
              res.render("delete.ejs",{user});
         });
        }catch(err){
-        res.send("some error occure on db");
+        res.send("some error occure with db");
        }
+});
+
+app.delete("/user/:id",(req,res)=>{
+    let {id} = req.params;
+    let {password} = req.body;
+    let q = `SELECT * FROM user WHERE id ='${id}'`;
+    try{
+        connection.query(q,(err,result)=>{
+            if(err) throw err;
+            let user = result[0];
+            
+            if(user.password != password){
+                res.send("wrong password ENTERD");
+            }else{
+                let q2 = `DELETE FROM user WHERE id ='${id}'`;
+                connection.query(q2,(err,result)=>{
+                      if(err) throw err;
+                      else{
+                        console.log(result);
+                        console.log("deleted");
+                        res.redirect("/user");
+                      }
+                });
+            }
+
+        });
+    }catch(err){
+        res.send("some error ocurred in db");
+    }
+
+
 });
 
 app.listen("8080", () => {

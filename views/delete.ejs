@@ -7,9 +7,9 @@
 </head>
 <body>
     <h2>If you want to delete user : <%= user.email %> <br>Plese Enter password :  </h2>
-    <form method="post" action="/user/<%= user.id %>?_method=DELETE">
-     <input type="password" name="password" placeholder=" enter password">
+    <form method="post" action="/user/<%=user.id%>?_method=DELETE">
+     <input name="password" placeholder=" enter password">
           <button>Delete</button>
     </form>
 </body>
-</html>
+</html> 

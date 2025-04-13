@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>Add New User</title>
   </head>
   <body>
-    <h1>Hi, Welcome!</h1>
-    <h2>
-      Become a part of our vibrant community of
-      <b style="color: red"><%= count %></b> users
-    </h2>
-    <button>Join Today</button>
+    <form action="/user/new" method="POST">
+      <input name="email" type="email" placeholder="enter email" />
+      <input name="username" type="text" placeholder="enter usernmae" />
+      <input name="password" type="password" placeholder="enter password" />
+      <button>Submit</button>
+    </form>
   </body>
 </html>
