@@ -4,7 +4,7 @@ const a = 100;
 
 setImmediate(() => console.log("setimmediate"));
 
-Promise.resolve(()=> console.log("promise"));
+Promise.resolve("promise").then(console.log);
 
 fs.readFile('./file.txt', "utf8", ()=>{
     console.log("file Reading CB");
