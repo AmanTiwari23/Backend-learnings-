@@ -12,7 +12,22 @@ async function main() {
 
   console.log("Connected successfully to server");
   const db = client.db(dbName);
-  const colllection = db.collection("user");
+  const collection = db.collection("user");
+
+  const data = {
+    firstname:"anuj",
+    lastname:'tiwari'
+  };
+
+//   const innsertResult = await collection.insertOne(data);
+//   console.log("Inserted documents => ",innsertResult);
+
+
+  const findResult = await collection.find({}).toArray();
+  console.log('Found documents =>', findResult);
+
+  const result = await collection.countDocuments({lastname:"Tiwari"});
+  console.log(result);
 
   return "done";
 }
